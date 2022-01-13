@@ -1,0 +1,199 @@
+-- DROP SCHEMA public; 
+
+  
+
+CREATE SCHEMA public AUTHORIZATION mac; 
+
+  
+
+-- DROP SEQUENCE public.album_id_seq; 
+
+  
+
+CREATE SEQUENCE public.album_id_seq 
+
+INCREMENT BY 1 
+
+MINVALUE 1 
+
+MAXVALUE 2147483647 
+
+START 1 
+
+CACHE 1 
+
+NO CYCLE; 
+
+-- DROP SEQUENCE public.artist_id_seq; 
+
+  
+
+CREATE SEQUENCE public.artist_id_seq 
+
+INCREMENT BY 1 
+
+MINVALUE 1 
+
+MAXVALUE 2147483647 
+
+START 1 
+
+CACHE 1 
+
+NO CYCLE; 
+
+-- DROP SEQUENCE public.music_platform_id_seq; 
+
+  
+
+CREATE SEQUENCE public.music_platform_id_seq 
+
+INCREMENT BY 1 
+
+MINVALUE 1 
+
+MAXVALUE 2147483647 
+
+START 1 
+
+CACHE 1 
+
+NO CYCLE; 
+
+-- DROP SEQUENCE public.song_id_seq; 
+
+  
+
+CREATE SEQUENCE public.song_id_seq 
+
+INCREMENT BY 1 
+
+MINVALUE 1 
+
+MAXVALUE 2147483647 
+
+START 1 
+
+CACHE 1 
+
+NO CYCLE;-- public.music_platform definition 
+
+  
+
+-- Drop table 
+
+  
+
+-- DROP TABLE music_platform; 
+
+  
+
+CREATE TABLE music_platform ( 
+
+id serial4 NOT NULL, 
+
+music_platform_name varchar(30) NULL, 
+
+how_many_ads_per_sec_should_run numeric NULL, 
+
+CONSTRAINT music_platform_pkey PRIMARY KEY (id) 
+
+); 
+
+  
+
+  
+
+-- public.artist definition 
+
+  
+
+-- Drop table 
+
+  
+
+-- DROP TABLE artist; 
+
+  
+
+CREATE TABLE artist ( 
+
+id serial4 NOT NULL, 
+
+nickname varchar(30) NULL, 
+
+rating int4 NULL, 
+
+music_platform_id int4 NULL, 
+
+CONSTRAINT artist_pkey PRIMARY KEY (id), 
+
+CONSTRAINT artist_music_platform_id_fkey FOREIGN KEY (music_platform_id) REFERENCES music_platform(id) 
+
+); 
+
+  
+
+  
+
+-- public.album definition 
+
+  
+
+-- Drop table 
+
+  
+
+-- DROP TABLE album; 
+
+  
+
+CREATE TABLE album ( 
+
+id serial4 NOT NULL, 
+
+album_name varchar(100) NULL, 
+
+rating int4 NULL, 
+
+artist_id int4 NULL, 
+
+CONSTRAINT album_pkey PRIMARY KEY (id), 
+
+CONSTRAINT album_artist_id_fkey FOREIGN KEY (artist_id) REFERENCES artist(id) 
+
+); 
+
+  
+
+  
+
+-- public.song definition 
+
+  
+
+-- Drop table 
+
+  
+
+-- DROP TABLE song; 
+
+  
+
+CREATE TABLE song ( 
+
+id serial4 NOT NULL, 
+
+song_name varchar(100) NULL, 
+
+rating int4 NULL, 
+
+song_length int4 NULL, 
+
+album_id int4 NULL, 
+
+CONSTRAINT song_pkey PRIMARY KEY (id), 
+
+CONSTRAINT song_album_id_fkey FOREIGN KEY (album_id) REFERENCES album(id) 
+
+); 
